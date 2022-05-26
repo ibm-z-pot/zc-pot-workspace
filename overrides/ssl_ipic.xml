@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server>
+    <ssl      id="ipicSSLConfig" 
+              keyStoreRef="ipicKeyStore" 
+              trustStoreRef="ipicTrustStore" />    
+    <keyStore id="ipicKeyStore"
+              location="${server.config.dir}/resources/security/zc-pot-designer.p12"
+              password="${KEYSTORE_PASSWORD}"
+              type="PKCS12" />  
+    <keyStore id="ipicTrustStore"
+              location="${server.config.dir}/resources/security/zc-pot-designer-truststore.p12"
+              password="${TRUSTSTORE_PASSWORD}"
+              type="PKCS12" />
+</server>

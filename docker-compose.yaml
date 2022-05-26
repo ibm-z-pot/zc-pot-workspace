@@ -1,0 +1,19 @@
+version: "3.2"
+services:
+    zosConnect:
+        image: icr.io/zosconnect/ibm-zcon-designer:3.0.56
+        environment:
+            - BAQ_NETWORK=BAQCA
+            - BAQ_APPLID=BAQCA
+            - CICS_HOST=zt01.mop.ibm
+            - CICS_PORT=57025
+            - HTTP_PORT=9080
+            - HTTPS_PORT=9443
+        ports:
+            - "9443:9443"
+            - "9080:9080"
+        volumes:
+            - ../zc-pot-$POTID:/workspace/project
+            - ./logs/:/logs/
+            - ./certs:/config/resources/security/:ro
+            - ./defaults:/config/configDropins/defaults:ro
