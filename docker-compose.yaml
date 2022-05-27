@@ -9,6 +9,8 @@ services:
             - CICS_PORT=57025
             - HTTP_PORT=9080
             - HTTPS_PORT=9443
+            - KEYSTORE_PASSWORD=${KPASS}
+            - TRUSTSTORE_PASSWORD=${TPASS}
         ports:
             - "9443:9443"
             - "9080:9080"
