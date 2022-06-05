@@ -5,7 +5,7 @@ services:
         environment:
             - BAQ_NETWORK=BAQCA
             - BAQ_APPLID=BAQCA
-            - CICS_HOST=zt01.mop.ibm
+            - CICS_HOST=169.62.161.37
             - CICS_PORT=57025
             - HTTP_PORT=9080
             - HTTPS_PORT=9443
@@ -15,7 +15,7 @@ services:
             - "9443:9443"
             - "9080:9080"
         volumes:
-            - ../zc-api-${POTID}:/workspace/project
+            - ../zc-pot-api:/workspace/project
             - ./logs/:/logs/
             - ./certs:/config/resources/security/:ro
             - ./defaults:/config/configDropins/defaults:ro
