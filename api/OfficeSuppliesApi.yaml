@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: OfficeSuppliesApi
+  title: CatalogManagerApi
   description: Manage an office supplies catalog through an API for CICS.
   version: '1.1'
   license:
