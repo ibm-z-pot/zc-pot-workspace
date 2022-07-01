@@ -1,5 +1,5 @@
       *    Catalogue COMMAREA structure
-       01  CA-COMMAREA.
+       01  DFH0XCP1.
            03 CA-REQUEST-ID            PIC X(6).
            03 CA-RETURN-CODE           PIC 9(2).
            03 CA-RESPONSE-MESSAGE      PIC X(79).

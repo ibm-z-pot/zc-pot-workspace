@@ -7,13 +7,11 @@ services:
             - BAQ_APPLID=BAQCA
             - CICS_HOST=169.62.161.37
             - CICS_PORT=57027
-            - HTTP_PORT=9080
             - HTTPS_PORT=9443
             - KEYSTORE_PASSWORD=${KPASS}
             - TRUSTSTORE_PASSWORD=${TPASS}
         ports:
             - "9443:9443"
-            - "9080:9080"
         volumes:
             - ../zc-pot-api:/workspace/project
             - ./logs/:/logs/
