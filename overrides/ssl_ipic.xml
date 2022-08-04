@@ -4,11 +4,11 @@
               keyStoreRef="ipicKeyStore" 
               trustStoreRef="ipicTrustStore" />    
     <keyStore id="ipicKeyStore"
-              location="${server.config.dir}/resources/security/zc-pot-designer.p12"
+              location="${server.config.dir}/resources/security/${KEYSTORE}"
               password="${KEYSTORE_PASSWORD}"
               type="PKCS12" />  
     <keyStore id="ipicTrustStore"
-              location="${server.config.dir}/resources/security/zc-pot-designer-truststore.p12"
+              location="${server.config.dir}/resources/security/${TRUSTSTORE}"
               password="${TRUSTSTORE_PASSWORD}"
               type="PKCS12" />
 </server>
