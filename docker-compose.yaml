@@ -9,7 +9,7 @@ services:
             - CICS_PORT=57027
             - HTTPS_PORT=9443
             - KEYSTORE=zc-pot-designer.p12
-            - TRUSTSTORE=zc-pot-designer.truststore.p12
+            - TRUSTSTORE=zc-pot-designer-truststore.p12
             - KEYSTORE_PASSWORD=${KPASS}
             - TRUSTSTORE_PASSWORD=${TPASS}
         ports:
