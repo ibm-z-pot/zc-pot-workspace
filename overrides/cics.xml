@@ -4,7 +4,7 @@
         <feature>zosconnect:cics-1.0</feature>
     </featureManager>
 
-    <zosconnect_cicsIpicConnection id="cicsConn"
+    <zosconnect_cicsIpicConnection id="${CICS_NAME}"
 	                           zosConnectNetworkid="${BAQ_NETWORK}"
 	                           zosConnectApplid="${BAQ_APPLID}"
 	                           host="${CICS_HOST}"

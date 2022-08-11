@@ -5,13 +5,14 @@ services:
         environment:
             - BAQ_NETWORK=BAQCA
             - BAQ_APPLID=BAQCA
+            - CICS_NAME=cicsConn
             - CICS_HOST=169.62.161.37
             - CICS_PORT=57027
-            - HTTPS_PORT=9443
             - KEYSTORE=zc-pot-designer.p12
-            - TRUSTSTORE=zc-pot-designer-truststore.p12
             - KEYSTORE_PASSWORD=${KPASS}
+            - TRUSTSTORE=zc-pot-designer-truststore.p12
             - TRUSTSTORE_PASSWORD=${TPASS}
+            - HTTPS_PORT=9443
         ports:
             - "9443:9443"
         volumes:
