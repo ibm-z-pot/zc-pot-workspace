@@ -6,7 +6,7 @@ services:
             - BAQ_NETWORK=BAQCA
             - BAQ_APPLID=BAQCA
             - CICS_NAME=cicsConn
-            - CICS_HOST=169.62.161.37
+            - CICS_HOST=10.242.64.200
             - CICS_PORT=57027
             - KEYSTORE=zc-pot-designer.p12
             - KEYSTORE_PASSWORD=${KPASS}
