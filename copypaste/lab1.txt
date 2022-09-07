@@ -1,0 +1,53 @@
+2c
+docker pull icr.io/zosconnect/ibm-zcon-designer:3.0.59
+
+2d
+docker images
+
+
+3c
+git clone github.com:ibm-z-pot/zc-pot-api.git
+
+3f
+git clone github.com:ibm-z-pot/zc-pot-workspace.git
+
+
+4b
+cd ~/zc-pot-workspace
+
+4c
+docker-compose up -d
+
+
+9b
+cd ~/zc-pot-workspace
+
+9c
+docker-compose down
+
+
+10b
+cd ~/zc-pot-api
+
+10c
+git checkout -b $POTNAME main
+
+10d
+git add .
+
+10e
+git status
+
+10f
+git commit -m "API created using zOS Connect Designer"
+
+10g
+git push -u origin $POTNAME
+
+
+11b
+cd ~
+
+11c
+rm -rf ~/zc-pot-api
+rm -rf ~/zc-pot-workspace
