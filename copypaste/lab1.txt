@@ -1,5 +1,5 @@
 2c
-docker pull icr.io/zosconnect/ibm-zcon-designer:3.0.59
+docker pull icr.io/zosconnect/ibm-zcon-designer:3.0.72
 
 2d
 docker images
