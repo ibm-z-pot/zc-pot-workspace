@@ -11,5 +11,5 @@ oc create secret generic zc-keystore --from-file ~/zc-pot-server/certs/zc-pot-se
 oc create secret generic zc-truststore --from-file ~/zc-pot-server/certs/zc-pot-server-truststore.p12
 
 
-12c
+13c
 oc patch deployment zc-deployment --patch-file ~/zc-pot-server/ocp/pot-volumes.yaml
