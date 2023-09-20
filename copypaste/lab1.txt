@@ -18,6 +18,9 @@ cd ~/zc-pot-workspace
 4c
 docker-compose up -d
 
+4f
+tail -n 20 -f ~/zc-pot-workspace/logs/messages.log
+
 
 9b
 cd ~/zc-pot-workspace
