@@ -1,33 +1,33 @@
-2c (Optional)
+2b (Optional)
+rm -rf ~/zc-pot-api
 export POTNAME="pot99"
 
-
-3b
+2c
 git clone --branch $POTNAME --single-branch github.com:ibm-z-pot/zc-pot-api.git
 
 
-4c
+3c
 cd ~/zc-pot-api
 
-4d
+3d
 gradle assemble
 
 
-5b
+4b
 cd ~/zc-pot-api
 
-5d
+4d
 docker images
 
-5f
+4f
 docker build -t icr.io/zpot/zc-pot-api:$TAGNAME .
 
-5g
+4g
 docker images
 
 
-6b
+5b
 echo $POT_REGISTRY_KEY | docker login -u iamapikey --password-stdin icr.io/zpot
 
-6c
+5c
 docker push icr.io/zpot/zc-pot-api:$TAGNAME
