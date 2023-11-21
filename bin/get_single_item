@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# z/OS Connect OpenAPI 3 PoT - invoke GET /items{id} operation
+
+if [ $# -ge 1 ]; then
+   itemid="$1"
+   if [ $# -ge 2 ]; then
+      routehost="$2"
+   else
+      routehost="https://zc-${PROJECT}.apps-crc.testing"
+   fi
+else
+   routehost="https://zc-${PROJECT}.apps-crc.testing"
+   itemid="10"
+fi
+
+echo
+echo "Usage: $(basename -- "$0") <ITEM_ID> <HOST>"
+echo
+echo "Using this value for <ITEM_ID>:   ${itemid}"
+echo "Using this value for <HOST>:      ${routehost}"
+echo
+echo
+echo "Office Supplies Catalog API"
+echo "Testing the GET /items{id} operation, please wait....."
+echo
+
+curlcmd="curl -kX GET --header 'Accept: application/json' '${routehost}/items/${itemid}'"
+cmd="${curlcmd} | jq '.'"
+eval $cmd
+
+echo
+echo "The above result was returned in response to the following request:"
+echo $curlcmd
+echo
+
+exit

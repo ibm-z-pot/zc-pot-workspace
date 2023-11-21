@@ -1,15 +1,33 @@
-7c
-oc whoami
+2b (Optional)
+rm -rf ~/zc-pot-api
+export POTNAME="pot99"
 
-7d
-oc project
-
-7e
-oc create secret generic zc-keystore --from-file ~/zc-pot-server/certs/zc-pot-server.p12
-
-7f
-oc create secret generic zc-truststore --from-file ~/zc-pot-server/certs/zc-pot-server-truststore.p12
+2c
+git clone --branch $POTNAME --single-branch github.com:ibm-z-pot/zc-pot-api.git
 
 
-13c
-oc patch deployment zc-deployment --patch-file ~/zc-pot-server/ocp/pot-volumes.yaml
+3c
+cd ~/zc-pot-api
+
+3d
+gradle assemble
+
+
+4b
+cd ~/zc-pot-api
+
+4d
+docker images
+
+4f
+docker build -t icr.io/zpot/zc-pot-api:$TAGNAME .
+
+4g
+docker images
+
+
+5b
+echo $POT_REGISTRY_KEY | docker login -u iamapikey --password-stdin icr.io/zpot
+
+5c
+docker push icr.io/zpot/zc-pot-api:$TAGNAME

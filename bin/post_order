@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# z/OS Connect OpenAPI 3 PoT - invoke POST /orders operation
+
+if [ $# -ge 1 ]; then
+   itemid="$1"
+   if [ $# -ge 2 ]; then
+      quantity="$2"
+      if [ $# -ge 3 ]; then
+         routehost="$3"
+      else
+         routehost="https://zc-${PROJECT}.apps-crc.testing"
+      fi
+   else
+      quantity="1"
+      routehost="https://zc-${PROJECT}.apps-crc.testing"
+   fi
+else
+   itemid="10"
+   quantity="1"
+   routehost="https://zc-${PROJECT}.apps-crc.testing"
+fi
+
+echo
+echo "Usage: $(basename -- "$0") <ITEM_ID> <QUANTITY> <HOST>"
+echo
+echo "Using this value for <ITEM_ID>:   ${itemid}"
+echo "Using this value for <QUANTITY>:  ${quantity}"
+echo "Using this value for <HOST>:      ${routehost}"
+echo
+echo
+echo "Office Supplies Catalog API"
+echo "Testing the POST /orders operation, please wait....."
+echo
+
+curlcmd="curl -kX POST --header 'Accept: application/json' '${routehost}/orders?itemNumber=${itemid}&quantity=${quantity}'"
+cmd="${curlcmd} | jq '.'"
+eval $cmd
+
+echo
+echo "The above result was returned in response to the following request:"
+echo $curlcmd
+echo
+
+exit

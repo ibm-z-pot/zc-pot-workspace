@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# location of included scripts
+DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+
+# git config
+githost="github.com"
+gituser="ibm-z-pot"
+gitemail="ibmzpot@ibm.com"
+eval "git config --global user.name '${gituser}'"
+eval "git config --global user.email '${gitemail}'"
+eval "umask 002"
+
+# build config
+build_dir="/home/potuser/native"
+apiname="zc-pot-api"
+gitbranch=${POTNAME}
+contextroot=${TAGNAME}
+vrm="v1.0.0"
+server="baqba01"
+
+# test config
+host="zt01.mop.ibm"
+port="55010"
+path="items?startItemID=10"
+
+# optional input parameters
+if [ $# -ge 1 ]; then
+   gitbranch="$1"
+   if [ $# -ge 2 ]; then
+      contextroot="$2"
+      if [ $# -ge 3 ]; then
+         vrm="$3"
+         if [ $# -ge 4 ]; then
+            server="$4"
+            if [ $# -ge 5 ]; then
+               port="$5"
+               if [ $# -ge 6 ]; then
+                  echo
+                  echo "Usage: ${0} <branch> <context_root> <vrm> <server> <port>"
+                  echo
+                  exit
+               fi
+            fi
+         fi
+      fi
+   fi
+fi
+
+# check if server is cloned (server name ends with "0")
+if [ ${server:0-1} == "0" ]; then
+   dropin="shared/config/${server}"
+else
+   dropin="servers/${server}/configDropins/overrides"
+fi
+
+# Initialise build directory
+eval "rm -rf ${build_dir}"
+eval "mkdir ${build_dir}"
+eval "cd ${build_dir}"
+eval "echo '<?xml version=\"1.0\" encoding=\"UTF-8\" ?>'                                                                          > ${contextroot}.xml"
+eval "echo '<server>'                                                                                                            >> ${contextroot}.xml"
+eval "echo '   <webApplication location=\"${contextroot}_${vrm}.war\" name=\"${contextroot}\" contextRoot=\"/${contextroot}\" >' >> ${contextroot}.xml"
+eval "echo '   </webApplication>'                                                                                                >> ${contextroot}.xml"
+eval "echo '</server>'                                                                                                           >> ${contextroot}.xml"
+
+# Instructions
+box=$'
+===================================================================================================
+'
+before[0]=$'= This script performs the steps necessary to deploy your API to a native z/OS Connect server     ='
+before[1]=$'= Step 1 - Clone the git repository containing your API source                                    ='
+before[2]=$'= Step 2 - Edit your OpenAPI specification to include a context root                              ='
+before[3]=$'= Step 3 - Build your API war file using Gradle                                                   ='
+before[4]=$'= Step 4 - Copy your API war file to the z/OS Connect native server apps directory                =
+=          Rename the war file from api.war to a unique API name and version                      ='
+before[5]=$'= Step 5 - Generate a <webApplication> element to deploy with your API                            ='
+before[6]=$'= Step 6 - Copy the <webApplication> element to the z/OS Connect native server Dropins directory  ='
+before[7]=$'= Step 7 - Ask the lab instructor to refresh the z/OS Connect native server configuration         ='
+before[8]=$'= Step 8 - Test your API has been successfully deployed                                           ='
+before[9]=$'= All steps completed. Let the lab instructor know if you encountered any problems                ='
+
+# command sequence
+cmd[0]="ACTION: press ENTER when you are ready to begin"
+cmd[1]="git clone --branch ${gitbranch} --single-branch ${githost}:${gituser}/${apiname}.git"
+cmd[2]="sed -i 's=url: /=url: /${contextroot}=' ${build_dir}/${apiname}/src/main/api/openapi.yaml"
+cmd[3]="gradle --project-dir '${build_dir}/${apiname}' assemble"
+cmd[4]="echo 'put ${build_dir}/${apiname}/build/libs/api.war /var/zosconnect/servers/${server}/apps/${contextroot}_${vrm}.war' | sftp zt01.mop.ibm"
+cmd[5]="cat ${build_dir}/${contextroot}.xml"
+cmd[6]="echo 'put ${build_dir}/${contextroot}.xml /var/zosconnect/${dropin}/${contextroot}.xml' | sftp zt01.mop.ibm"
+cmd[7]="ACTION: Wait for the lab instructor to issue this z/OS console command:         F <server>,REFRESH,CONFIG"
+cmd[8]="http GET ${host}:${port}/${contextroot}/${path}"
+cmd[9]="ACTION: Feel free to test your API again. Example command:      http GET ${host}:${port}/${contextroot}/${path}"
+
+# execute commands
+. "$DIR/cmd_loop"
+
+exit

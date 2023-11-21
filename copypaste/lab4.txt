@@ -1,0 +1,15 @@
+7c
+oc whoami
+
+7d
+oc project
+
+7e
+oc create secret generic zc-keystore --from-file ~/zc-pot-server/certs/zc-pot-server.p12
+
+7f
+oc create secret generic zc-truststore --from-file ~/zc-pot-server/certs/zc-pot-server-truststore.p12
+
+
+13c
+oc patch deployment zc-deployment --patch-file ~/zc-pot-server/ocp/pot-volumes.yaml
